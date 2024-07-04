@@ -1,5 +1,5 @@
 
-
+// metodo per ottenere tutte le pizze dal db
 const getPizzas = async () => {
   try {
 
@@ -15,7 +15,6 @@ export default async function Home() {
 
   const { pizzas } = await getPizzas()
 
-  console.log(pizzas)
   return (
     <main>
       <h1>Pizza Selection</h1>

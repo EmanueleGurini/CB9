@@ -8,7 +8,6 @@ import Pizza from '../../(models)/Pizzas'
 
 
 export async function GET() {
-
 	try {
 
 		const pizzas = await Pizza.find();
@@ -18,4 +17,20 @@ export async function GET() {
 	} catch (error) {
 		return NextResponse.json({ message: 'Error', error }, { status: 500 })
 	}
+}
+
+
+export async function POST(req) {
+	try {
+		const body = await req.json();
+		const pizzaData = body.formData;
+		await Pizza.create(pizzaData);
+
+		return NextResponse.json({ message: "La pizza è stata creata" }, { status: 200 });
+
+
+	} catch (error) {
+		return NextResponse.json({ message: 'Error', error }, { status: 500 })
+	}
+
 }
