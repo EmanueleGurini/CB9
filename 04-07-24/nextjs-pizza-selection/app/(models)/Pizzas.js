@@ -7,7 +7,7 @@ mongoose.Promise = global.Promise;
 const pizzaSchema = new Schema(
 	{
 		name: String,
-		ingredienti: Array,
+		ingredients: Array,
 	}
 )
 

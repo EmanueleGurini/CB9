@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.text-red {
+  color: red;
+}
+
+.bg-coral {
+  background-color: coral;
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+}
+
+.circle {
+  border-radius: 50%;
+}
