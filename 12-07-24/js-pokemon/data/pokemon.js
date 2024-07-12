@@ -55,6 +55,4 @@ const pokemon = [
 	}
 ]
 
-export {
-	pokemon
-}
+export { pokemon }
