@@ -1,51 +1,43 @@
 import { productCardGen, listProductGen } from "./modules/components.js";
-import { GET, POST, DELETE, PUT } from './modules/http.js'
+import { GET, POST, DELETE, PUT } from './modules/http.js';
 
 const main = document.getElementById('main');
-const updateForm = document.getElementById('update-form');
-
-const getProducts = () => {
-	return GET();
-}
-
-const addProduct = async (value) => {
-	const data = value;
-	return POST(data);
-}
+const addProductForm = document.getElementById('add-product-form');
+const updateProductForm = document.getElementById('update-product-form');
 
 
-/**
- *	restituisce una lista di prodotti che vengono dal ecommerce 
- * @returns qualcosa
- */
+const deleteProduct = async (productId) => {
+	try {
+		await DELETE(productId);
+		main.innerHTML = "";
+		main.append(await renderListProduct());
+	} catch (error) {
+		console.Error('Error:', error)
+	}
+};
+
+const updateProduct = (product) => {
+	updateProductForm[0].value = product.title;
+	updateProductForm[1].value = product.id;
+};
+
 const renderListProduct = async () => {
+	try {
+		const products = await GET();
+		const listProduct = listProductGen();
 
-	const products = await getProducts()
-
-	const listProduct = listProductGen();
-
-	products.forEach(product => {
-
-		const productCard = productCardGen(product, async () => {
-			await DELETE(product.id)
-
-			main.innerHTML = "";
-
-			main.append(await renderListProduct());
-		}, () => {
-			updateForm[0].value = product.title
-			updateForm[1].value = product.id
+		products.forEach((product) => {
+			const productCard = productCardGen(product, () => deleteProduct(product.id), () => updateProduct(product));
+			listProduct.append(productCard);
 		});
-		listProduct.append(productCard);
-	})
 
-	return listProduct;
+		return listProduct;
+	} catch (error) {
+		console.error("Errore nel caricamento dei prodotti:", error);
+	}
+};
 
-}
-
-const productForm = document.getElementById('product-form');
-
-productForm.addEventListener('submit', async (e) => {
+const addProduct = async (e) => {
 	e.preventDefault();
 
 	const data = {
@@ -54,36 +46,38 @@ productForm.addEventListener('submit', async (e) => {
 		"description": "A description",
 		"categoryId": 1,
 		"images": ["https://placeimg.com/640/480/any"]
+	};
+
+	try {
+		await POST(data);
+		main.innerHTML = "";
+		main.append(await renderListProduct());
+	} catch (error) {
+		console.error('Error:', error)
 	}
+};
 
-	await addProduct(data)
-
-	main.innerHTML = "";
-
-	main.append(await renderListProduct());
-})
-
-
-
-
-updateForm.addEventListener('submit', async (e) => {
-	e.preventDefault();
-
-	const id = e.target[1].value;
-
-	const data = {
-		"title": e.target[0].value,
-		"price": 10,
+const updateProductFormSubmit = async (e) => {
+	try {
+		e.preventDefault();
+		const id = e.target[1].value;
+		const data = {
+			"title": e.target[0].value,
+			"price": 10
+		};
+		await PUT(id, data);
+		e.target[0].value = "";
+		e.target[1].value = "";
+		main.innerHTML = "";
+		main.append(await renderListProduct());
+	} catch (error) {
+		console.error('Error:', error)
 	}
+};
 
-	await PUT(id, data)
+addProductForm.addEventListener('submit', addProduct);
+updateProductForm.addEventListener('submit', updateProductFormSubmit);
 
-	e.target[0].value = ""
-	e.target[1].value = ""
-
-	main.innerHTML = "";
-
+window.onload = async () => {
 	main.append(await renderListProduct());
-})
-
-window.onload = main.append(await renderListProduct())
+};
