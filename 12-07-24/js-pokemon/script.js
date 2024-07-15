@@ -36,3 +36,18 @@ pokemon.forEach((singlePokemon) => {
 })
 
 
+const form = document.getElementById('form-data');
+
+
+
+const input = document.getElementById('pippo');
+
+const sendData = (e) => {
+	e.preventDefault();
+	console.log(e.target[0].value)
+
+}
+
+form.addEventListener('submit', sendData)
+
+
