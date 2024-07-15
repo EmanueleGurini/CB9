@@ -1,9 +1,21 @@
 import { productCardGen, listProductGen } from "./modules/components.js";
-import { products } from "./data/products.js";
+import { GET, POST } from "./modules/HTTP.js"
 
 const main = document.getElementById('main');
 
-const renderListProduct = () => {
+const getProducts = () => {
+	return GET();
+}
+
+const addProduct = async (value) => {
+	const data = value;
+	return POST(data);
+}
+
+const renderListProduct = async () => {
+
+	const products = await getProducts()
+	console.log(products)
 
 	const listProduct = listProductGen();
 
@@ -17,14 +29,24 @@ const renderListProduct = () => {
 
 }
 
-const addButton = document.getElementById("addButton");
+const productForm = document.getElementById('product-form');
 
-addButton.addEventListener('click', () => {
+productForm.addEventListener('submit', async (e) => {
+	e.preventDefault();
+
+	const data = {
+		"title": e.target[0].value,
+		"price": 10,
+		"description": "A description",
+		"categoryId": 1,
+		"images": ["https://placeimg.com/640/480/any"]
+	}
+
+	await addProduct(data)
 
 	main.innerHTML = "";
-	products.push(products[0])
 
-	main.append(renderListProduct());
+	main.append(await renderListProduct());
 })
 
-window.onload = main.append(renderListProduct())
+window.onload = main.append(await renderListProduct())
