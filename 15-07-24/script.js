@@ -1,19 +1,30 @@
-import { productCardGen } from "./modules/components.js";
+import { productCardGen, listProductGen } from "./modules/components.js";
 import { products } from "./data/products.js";
 
-console.log(products)
-
-
-const listProduct = document.getElementById('list_product');
-
+const main = document.getElementById('main');
 
 const renderListProduct = () => {
 
-	const productCard = productCardGen();
+	const listProduct = listProductGen();
 
-	return productCard;
+	products.forEach(product => {
 
+		const productCard = productCardGen(product);
+		listProduct.append(productCard);
+	})
+
+	return listProduct;
 
 }
 
-window.onload = listProduct.append(renderListProduct())
+const addButton = document.getElementById("addButton");
+
+addButton.addEventListener('click', () => {
+
+	main.innerHTML = "";
+	products.push(products[0])
+
+	main.append(renderListProduct());
+})
+
+window.onload = main.append(renderListProduct())

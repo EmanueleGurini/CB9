@@ -9,7 +9,7 @@
   padding: 16px;
 }
 
-#list_product {
+.list_product {
   display: flex;
   flex-wrap: wrap;
 }
