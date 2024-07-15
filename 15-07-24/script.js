@@ -1,7 +1,8 @@
 import { productCardGen, listProductGen } from "./modules/components.js";
-import { GET, POST } from "./modules/HTTP.js"
+import { GET, POST, DELETE, PUT } from './modules/http.js'
 
 const main = document.getElementById('main');
+const updateForm = document.getElementById('update-form');
 
 const getProducts = () => {
 	return GET();
@@ -12,16 +13,29 @@ const addProduct = async (value) => {
 	return POST(data);
 }
 
+
+/**
+ *	restituisce una lista di prodotti che vengono dal ecommerce 
+ * @returns qualcosa
+ */
 const renderListProduct = async () => {
 
 	const products = await getProducts()
-	console.log(products)
 
 	const listProduct = listProductGen();
 
 	products.forEach(product => {
 
-		const productCard = productCardGen(product);
+		const productCard = productCardGen(product, async () => {
+			await DELETE(product.id)
+
+			main.innerHTML = "";
+
+			main.append(await renderListProduct());
+		}, () => {
+			updateForm[0].value = product.title
+			updateForm[1].value = product.id
+		});
 		listProduct.append(productCard);
 	})
 
@@ -43,6 +57,29 @@ productForm.addEventListener('submit', async (e) => {
 	}
 
 	await addProduct(data)
+
+	main.innerHTML = "";
+
+	main.append(await renderListProduct());
+})
+
+
+
+
+updateForm.addEventListener('submit', async (e) => {
+	e.preventDefault();
+
+	const id = e.target[1].value;
+
+	const data = {
+		"title": e.target[0].value,
+		"price": 10,
+	}
+
+	await PUT(id, data)
+
+	e.target[0].value = ""
+	e.target[1].value = ""
 
 	main.innerHTML = "";
 
