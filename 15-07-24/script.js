@@ -1,5 +1,5 @@
 import { productCardGen, listProductGen } from "./modules/components.js";
-import { GET, POST, DELETE, PUT } from './modules/http.js';
+import { GET, POST, DELETE, PUT } from './libs/HTTP.js';
 
 const main = document.getElementById('main');
 const addProductForm = document.getElementById('add-product-form');
