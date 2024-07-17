@@ -1,4 +1,5 @@
 import { createPortal } from "react-dom";
+
 function Modal({ children, isOpen, onClose }) {
   return createPortal(
     <>

@@ -16,8 +16,8 @@ function App() {
   return (
     <>
       <h1>ciao sono home {user && user.name}</h1>
-      <button onClick={() => setIsModalOpen(true)}>open modale</button>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+      <button onClick={() => setIsModalOpen(!isModalOpen)}>open modale</button>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(!isModalOpen)}>
         <p>pippo</p>
       </Modal>
     </>
