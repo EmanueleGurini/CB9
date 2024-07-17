@@ -16,7 +16,9 @@ function App() {
   }, [userId]);
 
   const getAdvice = () => {
-    fetch("https://api.adviceslip.com/advice")
+    fetch("https://api.adviceslip.com/advice", {
+      cache: "no-store",
+    })
       .then((res) => res.json())
       .then(({ slip }) =>
         setAdvice((prevState) => {
