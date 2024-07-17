@@ -1,7 +1,9 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { UserContext, SetUserContext } from "./context/UserContext";
+import Modal from "./components/Modal";
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useContext(UserContext);
   const { setUser } = useContext(SetUserContext);
 
@@ -14,6 +16,10 @@ function App() {
   return (
     <>
       <h1>ciao sono home {user && user.name}</h1>
+      <button onClick={() => setIsModalOpen(true)}>open modale</button>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <p>pippo</p>
+      </Modal>
     </>
   );
 }
