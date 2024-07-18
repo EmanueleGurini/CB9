@@ -4,6 +4,7 @@ import DefaultLayout from "./Layouts/DefaultLayout.jsx";
 import App from "./App.jsx";
 import "./index.css";
 import PokemonDetail from "./pages/PokemonDetail.jsx";
+import CreatePokemon from "./pages/CreatePokemon.jsx";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <App />,
+      },
+      {
+        path: "create",
+        element: <CreatePokemon />,
       },
       {
         path: "pokemon/:id",

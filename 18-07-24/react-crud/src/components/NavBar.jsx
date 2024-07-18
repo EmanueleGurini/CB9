@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 const menuList = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
+  { name: "Create", path: "/create" },
   { name: "Contacts", path: "/contacts" },
 ];
 

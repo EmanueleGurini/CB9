@@ -1,14 +1,34 @@
 {
-	"pokemon": [
-		{
-			"id": "1",
-			"name": "Bulbasaur",
-			"type": "grass"
-		},
-		{
-			"id": "2",
-			"name": "Ivysaur",
-			"type": "grass"
-		}
-	]
+  "pokemon": [
+    {
+      "id": "1",
+      "name": "Bulbasaur",
+      "type": "grass"
+    },
+    {
+      "id": "2",
+      "name": "Ivysaur",
+      "type": "grass"
+    },
+    {
+      "id": "6",
+      "name": "Charizar",
+      "type": "fire"
+    },
+    {
+      "id": "7",
+      "name": "Squirlte",
+      "type": "water"
+    },
+    {
+      "id": "",
+      "name": "",
+      "type": ""
+    },
+    {
+      "id": "5",
+      "name": "pippo",
+      "type": "pigro"
+    }
+  ]
 }
