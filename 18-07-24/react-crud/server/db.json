@@ -1,0 +1,14 @@
+{
+	"pokemon": [
+		{
+			"id": "1",
+			"name": "Bulbasaur",
+			"type": "grass"
+		},
+		{
+			"id": "2",
+			"name": "Ivysaur",
+			"type": "grass"
+		}
+	]
+}
